@@ -10,6 +10,18 @@
       flatten
       vec))
 
+(defn arr-has? [arr val]
+  (> (.indexOf arr val) -1))
+
+(defn arr-remove [arr val]
+  (->> arr
+       (remove #(= % val))
+       ;; we want to always return vector because how cljs
+       ;; conj works with vectors and regular sequences
+       ;; Elements to vector get appended to the end,
+       ;; elements to seq get prepended. (Remove returns a seq)
+       vec))
+
 (defn svg-x [class]
   [:svg {:class   class
          :xmlns   "http://www.w3.org/2000/svg"
@@ -59,9 +71,9 @@
      {:style {:margin-bottom 16}}
      (doall
        (for [currency @selected-]
-         (let [selected? (contains? @selected- currency)
+         (let [selected? (arr-has? @selected- currency)
                on-click #(if selected?
-                           (reset! selected- (disj @selected- currency))
+                           (reset! selected- (arr-remove @selected- currency))
                            (reset! selected- (conj @selected- currency)))]
            ^{:key (random-uuid)}
            [selected-currency-pill currency on-click])))]))
@@ -70,16 +82,16 @@
   [:div.currency-list-wrapper
    (doall
      (for [currency currencies]
-       (let [selected? (contains? @selected- currency)
+       (let [selected? (arr-has? @selected- currency)
              on-click #(if selected?
-                         (reset! selected- (disj @selected- currency))
+                         (reset! selected- (arr-remove @selected- currency))
                          (reset! selected- (conj @selected- currency)))]
          ^{:key (random-uuid)}
          [currency-pill currency selected? on-click])))])
 
 (defn cash-money-business []
   ;; stores the state of the "app"
-  (let [selected- (reagent/atom #{})]
+  (let [selected- (reagent/atom [])]
     (fn []
       [:section.cash-money-business
        [selected-currencies selected-]
