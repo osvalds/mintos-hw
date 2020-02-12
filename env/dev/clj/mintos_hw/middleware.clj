@@ -10,5 +10,4 @@
 (def middleware
   [#(wrap-defaults % site-defaults)
    wrap-exceptions
-   wrap-reload
-   wrap-gzip])
+   wrap-reload])
