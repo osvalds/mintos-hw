@@ -1,6 +1,6 @@
 (defproject mintos-hw "0.1.0-SNAPSHOT"
   :description "Mintos frontend developer homework assignment"
-  ;:url "http://example.com/FIXME"
+  :url "https://rocky-chamber-01633.herokuapp.com/"
 
   :dependencies [[org.clojure/clojure "1.10.1"]
                  [ring-server "0.5.0"]
