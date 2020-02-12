@@ -18,10 +18,10 @@ short while with the repo it should be okay.  The parts that will be interesting
 and [here](resources/public/css/site.css).
 
 The solution is also hosted on [Heroku](https://rocky-chamber-01633.herokuapp.com/). One of the drawbacks of hosting on Heroku
-is that Heroku doesn't let you enable gzip on server level, the application itself must support it. However, the server
+is that Heroku doesn't let you enable gzip on server level, the application itself must support it. However, the backend
 that is used in this template doesn't let you use gzip for resource files. This means that the shipped js bundle is 
-hilariously large. The reason is that the bundle must include ClojureScript's runtime, plus React and other smaller 
-dependencies.
+hilariously large. That is one of cljs's biggest drawbacks - large initial bundle size due to the necessity to ship its 
+runtime together with other dependencies that the app itself has.
 
 ## Running this thing locally
 
